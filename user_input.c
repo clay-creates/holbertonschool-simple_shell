@@ -10,9 +10,9 @@ int main(void)
     int characters;
     int i = 0;
 
-    if (buffer == NULL)
+    if (buffer == NULL || strlen(buffer) == 0)
     {
-        perror("Buffer allocation failed.");
+        fprintf(stderr, "Invalid input. \n");
         exit(1);
     }
 
@@ -20,7 +20,7 @@ int main(void)
     {
         printf("$: ");
         characters = getline(&buffer, &buffsize, stdin);
-        input_array = strtok(buffer, " ");
+        input_array = strtok(buffer, " \t\n\r");
         printf("characters: %d\n", characters);
 
         while (input_array != NULL)
