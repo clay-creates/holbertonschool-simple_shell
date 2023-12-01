@@ -21,7 +21,7 @@ char *read_line(void)
 	return buffer;
 }
 
-char *tokenize_line(char *buffer)
+char **tokenize_line(char *buffer)
 {
 	char **tokens = malloc(2 * sizeof(char *));
 	tokens[0] = strtok(buffer, " \t\n\r");
@@ -31,7 +31,7 @@ char *tokenize_line(char *buffer)
 		perror("Error tokenizing line");
 		exit(1);
 	}
-	return *tokens;
+	return tokens;
 }
 
 void path_search(const char *executable_name, char *args)
@@ -91,13 +91,15 @@ void path_search(const char *executable_name, char *args)
 	free(path_copy);
 }
 
+/** Bug Check Note: shell seg faults (and dumps memory on first command call on open (consistently)). Works effectively after, but need to find source of segfault */
+
 int main(void)
 {
 	while (!feof(stdin))
 	{
 		char *buffer = read_line();
 		char **tokens = tokenize_line(buffer);
-		if (tokens = NULL)
+		if (tokens[0] == NULL)
 		{
 			perror("Error tokenizing line.");
 			exit(1);
