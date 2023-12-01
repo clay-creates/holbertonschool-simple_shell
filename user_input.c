@@ -97,7 +97,13 @@ int main(void)
 	{
 		char *buffer = read_line();
 		char **tokens = tokenize_line(buffer);
+		if (tokens = NULL)
+		{
+			perror("Error tokenizing line.");
+			exit(1);
+		}
 		path_search(tokens[0], tokens[1]);
+		free(tokens);
 		free(buffer);
 	}
 	return 0;
