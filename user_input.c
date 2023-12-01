@@ -23,13 +23,15 @@ char *read_line(void)
 
 char *tokenize_line(char *buffer)
 {
-	char *token = strtok(buffer, " \t\n\r");
-	if (token == NULL)
+	char **tokens = malloc(2 * sizeof(char *));
+	tokens[0] = strtok(buffer, " \t\n\r");
+	tokens[1] = strtok(NULL, " \t\n\r");
+	if (tokens == NULL)
 	{
 		perror("Error tokenizing line");
 		exit(1);
 	}
-	return token;
+	return tokens;
 }
 
 void path_search(const char *executable_name)
