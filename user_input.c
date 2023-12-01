@@ -79,6 +79,10 @@ void path_search(const char *executable_name)
 				}
 			}
 		}
+		else
+		{
+			printf("Command not found: %s\n", executable_name);
+		}
 		free(executable_path);
 		dir = strtok(NULL, ":");
 	}
