@@ -42,7 +42,7 @@ void path_search(const char *executable_name)
 			{
 				int status;
 				wait(&status);
-				if (WIFEEXITED(status))
+				if (WIFEXITED(status))
 				{
 					printf("Child process exited with status %d\n", WEXITSTATUS(status));
 				}
