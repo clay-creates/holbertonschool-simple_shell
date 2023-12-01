@@ -31,7 +31,7 @@ char *tokenize_line(char *buffer)
 		perror("Error tokenizing line");
 		exit(1);
 	}
-	return tokens;
+	return *tokens;
 }
 
 void path_search(const char *executable_name, char *args)
@@ -64,8 +64,8 @@ void path_search(const char *executable_name, char *args)
 
 			if (pid == 0)
 			{
-				char *args[] = {executable_path, NULL};
-				execve(executable_path, args, NULL);
+				char *exec_args[] = {executable_path, args, NULL};
+				execve(executable_path, exec_args, NULL);
 
 				perror("Execve failed.");
 				exit(1);
