@@ -10,7 +10,6 @@
 
 char *read_line(void);
 char *tokenize_line(char *buffer);
-void print_words(char *token); /** will be defunct */
 void path_search(const char *executable_name);
 
 #endif
