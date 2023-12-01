@@ -21,6 +21,22 @@ void path_search(const char *executable_name)
         if (access(executable_path, F_OK) == 0)
         {
             printf("Found executable at %s\n", executable_path); /** need to execute if found */
+
+            __pid_t pid = fork();
+            if (pid < 0)
+            {
+                perror("Fork failed.");
+                exit(1);
+            }
+
+            if (pid == 0)
+            {
+                char *args[] = {executable_path, NULL};
+                execve(executable_path, args, NULL);
+
+                perror("Execve failed.");
+                exit(1);
+            }
         }
         free(executable_path);
         path_token = strtok(NULL, ":");
