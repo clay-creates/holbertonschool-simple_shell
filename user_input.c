@@ -34,7 +34,7 @@ char *tokenize_line(char *buffer)
 	return tokens;
 }
 
-void path_search(const char *executable_name)
+void path_search(const char *executable_name, char *args)
 {
 	char *path = getenv("PATH");
 	char *path_copy = strdup(path);
@@ -42,13 +42,13 @@ void path_search(const char *executable_name)
 
 	while (dir != NULL)
 	{
-		char *executable_path = malloc(strlen(path_token) + strlen(executable_name) + 2);
+		char *executable_path = malloc(strlen(path_copy) + strlen(executable_name) + 2);
 		if (executable_path == NULL)
 		{
 			perror("Memory allocation failed.");
 			exit(1);
 		}
-		strcpy(executable_path, path_token);
+		strcpy(executable_path, path_copy);
 		strcat(executable_path, "/");
 		strcat(executable_path, executable_name);
 		if (access(executable_path, F_OK) == 0)
@@ -96,8 +96,8 @@ int main(void)
 	while (!feof(stdin))
 	{
 		char *buffer = read_line();
-		char *executable_name = tokenize_line(buffer);
-		path_search(executable_name);
+		char **tokens = tokenize_line(buffer);
+		path_search(tokens[0], tokens[1]);
 		free(buffer);
 	}
 	return 0;
