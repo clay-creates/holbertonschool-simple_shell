@@ -35,9 +35,10 @@ char *tokenize_line(char *buffer)
 void path_search(const char *executable_name)
 {
 	char *path = getenv("PATH");
-	char *path_token = strtok(path, ":");
+	char *path_copy = strdup(path);
+	char *dir = strtok(path_copy, ":");
 
-	while (path_token != NULL)
+	while (dir != NULL)
 	{
 		char *executable_path = malloc(strlen(path_token) + strlen(executable_name) + 2);
 		if (executable_path == NULL)
@@ -79,8 +80,9 @@ void path_search(const char *executable_name)
 			}
 		}
 		free(executable_path);
-		path_token = strtok(NULL, ":");
+		dir = strtok(NULL, ":");
 	}
+	free(path_copy);
 }
 
 int main(void)
