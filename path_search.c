@@ -37,6 +37,16 @@ void path_search(const char *executable_name)
                 perror("Execve failed.");
                 exit(1);
             }
+
+            if (pid > 0)
+            {
+                int status;
+                wait(&status);
+                if (WIFEEXITED(status))
+                {
+                    printf("Child process exited with status %d\n", WEXITSTATUS(status));
+                }
+            }
         }
         free(executable_path);
         path_token = strtok(NULL, ":");
