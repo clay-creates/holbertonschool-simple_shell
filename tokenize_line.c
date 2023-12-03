@@ -9,9 +9,19 @@
 
 char **tokenize_line(char *buffer)
 {
-	char **tokens = malloc(2 * sizeof(char *));
-	tokens[0] = strtok(buffer, " \t\n\r");
-	tokens[1] = strtok(NULL, " \t\n\r");
+	int i = 0;
+	char **tokens = malloc(100 * sizeof(char *));
+	char *token = strtok(buffer, "\t\n\r");
+
+	while (token != NULL)
+	{
+		tokens[i] = token;
+		i++;
+		token = strtok(NULL, " \t\n\r");
+	}
+
+	tokens[i] = NULL;
+
 	if (tokens == NULL)
 	{
 		perror("Error tokenizing line");
