@@ -18,7 +18,7 @@ int main(void)
 	{
 		char *buffer = read_line();
 		char **tokens = tokenize_line(buffer);
-		if (tokens[0] = NULL)
+		if (tokens[0] == NULL)
 		{
 			perror("Error tokenizing line.");
 			exit(1);
