@@ -1,3 +1,5 @@
+#include "main.h"
+
 /**
  * tokenize_line - uses strtok to create tokens from user input (saved in buffer)
  * @buffer: array holding user input (from read_line)
