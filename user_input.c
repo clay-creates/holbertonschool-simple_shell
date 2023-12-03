@@ -1,5 +1,9 @@
 #include "main.h"
 
+char *read_line(void);
+char **tokenize_line(char *buffer);
+void path_search(const char *executable_name, char *args);
+
 /** Bug Check Note: shell seg faults (and dumps memory on first command call on open (consistently)). Works effectively after, but need to find source of segfault */
 
 /**
