@@ -1,6 +1,10 @@
 #include "main.h"
 
-/***/
+/**
+ * read_line - uses getline to recieve and save user input in buffer variable
+ *
+ * Return: returns the buffer array, with user input saved
+ */
 
 char *read_line(void)
 {
@@ -21,6 +25,13 @@ char *read_line(void)
 	return buffer;
 }
 
+/**
+ * tokenize_line - uses strtok to create tokens from user input (saved in buffer)
+ * @buffer: array holding user input (from read_line)
+ *
+ * Return: array of tokens created from user input
+ */
+
 char **tokenize_line(char *buffer)
 {
 	char **tokens = malloc(2 * sizeof(char *));
@@ -33,6 +44,12 @@ char **tokenize_line(char *buffer)
 	}
 	return tokens;
 }
+
+/**
+ * path_search - tokenizes copy of PATH to search for executable, given by user
+ * @executable_name: name of command entered into user input (tokens[0])
+ * @args: arguments for executable (found in tokens[1])
+ */
 
 void path_search(const char *executable_name, char *args)
 {
@@ -92,6 +109,12 @@ void path_search(const char *executable_name, char *args)
 }
 
 /** Bug Check Note: shell seg faults (and dumps memory on first command call on open (consistently)). Works effectively after, but need to find source of segfault */
+
+/**
+ * main - entry point for shell, creates infinite loop to start shell process
+ *
+ * Return: Return 0 on success
+ */
 
 int main(void)
 {
