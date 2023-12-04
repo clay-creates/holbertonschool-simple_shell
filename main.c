@@ -69,6 +69,8 @@ void path_search(const char *executable_name, char *args)
 	{
 		char *base_name = basename((char *)executable_name);
 		char *executable_path = malloc(strlen(path_copy) + strlen(executable_name) + 2);
+		int exec_status;
+
 		if (executable_path == NULL)
 		{
 			perror("Memory allocation failed.");
@@ -95,12 +97,14 @@ void path_search(const char *executable_name, char *args)
 				exec_args[1] = args;
 				exec_args[2] = NULL;
 
-				execve(executable_path, exec_args, NULL);
+				exec_status = (executable_path, exec_args, NULL);
 
-				perror("Execve failed.");
-				exit(1);
+				if (exec_status == -1)
+				{
+					perror("Execve failed.");
+					exit(1);
+				}
 			}
-
 			if (pid > 0)
 			{
 				int status;
