@@ -7,6 +7,7 @@
 #include <stddef.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <libgen.h>
 
 char *read_line(void);
 char **tokenize_line(char *buffer);
