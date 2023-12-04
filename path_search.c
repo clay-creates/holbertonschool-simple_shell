@@ -11,6 +11,7 @@ void path_search(const char *executable_name, char *args)
 	char *path = getenv("PATH");
 	char *path_copy = strdup(path);
 	char *dir = strtok(path_copy, ":");
+	__pid_t pid;
 
 	while (dir != NULL)
 	{
@@ -27,7 +28,7 @@ void path_search(const char *executable_name, char *args)
 		{
 			printf("Found executable at %s\n", executable_path); /** need to execute if found */
 
-			__pid_t pid = fork();
+			pid = fork();
 			if (pid < 0)
 			{
 				perror("Fork failed.");
@@ -36,7 +37,11 @@ void path_search(const char *executable_name, char *args)
 
 			if (pid == 0)
 			{
-				char *exec_args[] = {executable_path, args, NULL};
+				char *exec_args[3];
+				exec_args[0] = executable_path;
+				exec_args[1] = args;
+				exec_args[2] = NULL;
+
 				execve(executable_path, exec_args, NULL);
 
 				perror("Execve failed.");
@@ -58,6 +63,7 @@ void path_search(const char *executable_name, char *args)
 			printf("Command not found: %s\n", executable_name);
 		}
 		free(executable_path);
+		free(args);
 		dir = strtok(NULL, ":");
 	}
 	free(path_copy);
