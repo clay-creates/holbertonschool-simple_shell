@@ -15,15 +15,16 @@ void path_search(const char *executable_name, char *args)
 
 	while (dir != NULL)
 	{
+		char *base_name = basename((char *)executable_name);
 		char *executable_path = malloc(strlen(path_copy) + strlen(executable_name) + 2);
 		if (executable_path == NULL)
 		{
 			perror("Memory allocation failed.");
 			exit(1);
 		}
-		strcpy(executable_path, path_copy);
+		strcpy(executable_path, dir);
 		strcat(executable_path, "/");
-		strcat(executable_path, executable_name);
+		strcat(executable_path, base_name);
 		if (access(executable_path, F_OK) == 0)
 		{
 			printf("Found executable at %s\n", executable_path); /** need to execute if found */
@@ -61,6 +62,7 @@ void path_search(const char *executable_name, char *args)
 		else
 		{
 			printf("Command not found: %s\n", executable_name);
+			exit(1);
 		}
 		free(executable_path);
 		free(args);
