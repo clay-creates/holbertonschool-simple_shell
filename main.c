@@ -8,9 +8,9 @@
 
 char *read_line(void)
 {
-	size_t buffsize = 1024;
-	char *buffer = malloc(buffsize * sizeof(char));
-	int characters;
+	size_t buffsize = 0;
+	char *buffer = NULL;
+	getline(&buffer, &buffsize, stdin);
 
 	if (buffer == NULL)
 	{
@@ -18,12 +18,7 @@ char *read_line(void)
 		exit(1);
 	}
 	printf("$: ");
-	characters = getline(&buffer, &buffsize, stdin);
-	if (characters == -1)
-	{
-		perror("Error reading line");
-		exit(1);
-	}
+
 	return buffer;
 }
 
