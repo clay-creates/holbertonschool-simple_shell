@@ -21,10 +21,10 @@ void path_search(const char *executable_name, char *args)
 			perror("Memory allocation failed.");
 			exit(1);
 		}
-		strcpy(executable_path, path_copy);
+		/**strcpy(executable_path, path_copy);
 		strcat(executable_path, "/");
 		strcat(executable_path, executable_name);
-		if (access(executable_path, F_OK) == 0)
+		if (access(executable_path, F_OK) == 0)*/
 		{
 			printf("Found executable at %s\n", executable_path); /** need to execute if found */
 
