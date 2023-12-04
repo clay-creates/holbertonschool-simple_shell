@@ -32,7 +32,7 @@ char *read_line(void)
 char **tokenize_line(char *buffer)
 {
 	int i = 0;
-	char **tokens = malloc(100 * sizeof(char *));
+	char **tokens = safe_malloc(100 * sizeof(char *));
 	char *token = strtok(buffer, "\t\n\r");
 
 	while (token != NULL)
@@ -68,7 +68,7 @@ void path_search(const char *executable_name, char *args)
 	while (dir != NULL)
 	{
 		char *base_name = basename((char *)executable_name);
-		char *executable_path = malloc(strlen(path_copy) + strlen(executable_name) + 2);
+		char *executable_path = safe_malloc(strlen(path_copy) + strlen(executable_name) + 2);
 		int exec_status;
 
 		if (executable_path == NULL)
