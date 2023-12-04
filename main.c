@@ -99,7 +99,7 @@ void path_search(const char *executable_name, char *args)
 				exec_args[1] = args;
 				exec_args[2] = NULL;
 
-				exec_status = (executable_path, exec_args, NULL);
+				exec_status = execve(executable_path, exec_args, NULL);
 
 				if (exec_status == -1)
 				{
