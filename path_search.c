@@ -37,7 +37,11 @@ void path_search(const char *executable_name, char *args)
 
 			if (pid == 0)
 			{
-				char *exec_args[] = {executable_path, args, NULL};
+				char *exec_args[3];
+				exec_args[0] = executable_path;
+				exec_args[1] = args;
+				exec_args[2] = NULL;
+
 				execve(executable_path, exec_args, NULL);
 
 				perror("Execve failed.");
