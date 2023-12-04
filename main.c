@@ -1,5 +1,7 @@
 #include "main.h"
 
+char *safe_malloc(size_t size);
+
 /**
  * read_line - uses getline to recieve and save user input in buffer variable
  *
