@@ -104,6 +104,7 @@ void path_search(const char *executable_name, char *args)
 				if (exec_status == -1)
 				{
 					perror("Execve failed.");
+					free(args);
 					exit(1);
 				}
 			}
