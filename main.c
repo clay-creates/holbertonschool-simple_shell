@@ -8,9 +8,9 @@
 
 char *read_line(void)
 {
-	size_t buffsize = 1024;
-	char *buffer = malloc(buffsize * sizeof(char));
-	int characters;
+	size_t buffsize = 0;
+	char *buffer = NULL;
+	getline(&buffer, &buffsize, stdin);
 
 	if (buffer == NULL)
 	{
@@ -18,12 +18,7 @@ char *read_line(void)
 		exit(1);
 	}
 	printf("$: ");
-	characters = getline(&buffer, &buffsize, stdin);
-	if (characters == -1)
-	{
-		perror("Error reading line");
-		exit(1);
-	}
+
 	return buffer;
 }
 
@@ -37,7 +32,7 @@ char *read_line(void)
 char **tokenize_line(char *buffer)
 {
 	int i = 0;
-	char **tokens = malloc(100 * sizeof(char *));
+	char **tokens = safe_malloc(100 * sizeof(char *));
 	char *token = strtok(buffer, "\t\n\r");
 
 	while (token != NULL)
@@ -73,7 +68,9 @@ void path_search(const char *executable_name, char *args)
 	while (dir != NULL)
 	{
 		char *base_name = basename((char *)executable_name);
-		char *executable_path = malloc(strlen(path_copy) + strlen(executable_name) + 2);
+		char *executable_path = safe_malloc(strlen(path_copy) + strlen(executable_name) + 2);
+		int exec_status;
+
 		if (executable_path == NULL)
 		{
 			perror("Memory allocation failed.");
@@ -100,12 +97,14 @@ void path_search(const char *executable_name, char *args)
 				exec_args[1] = args;
 				exec_args[2] = NULL;
 
-				execve(executable_path, exec_args, NULL);
+				exec_status = (executable_path, exec_args, NULL);
 
-				perror("Execve failed.");
-				exit(1);
+				if (exec_status == -1)
+				{
+					perror("Execve failed.");
+					exit(1);
+				}
 			}
-
 			if (pid > 0)
 			{
 				int status;
