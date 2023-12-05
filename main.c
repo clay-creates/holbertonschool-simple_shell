@@ -116,9 +116,9 @@ void path_search(const char *executable_name, char *args)
 					free(args);
 					exit(EXIT_FAILURE);
 				}
-				return;
+				break;
 			}
-			else if
+			else if (pid > 0)
 			{
 				wait_pid = waitpid(pid, &exec_status, 0);
 				if (wait_pid == -1)
