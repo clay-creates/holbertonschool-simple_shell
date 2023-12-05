@@ -135,6 +135,7 @@ void path_search(const char *executable_name, char *args)
 			{
 				printf("Command not found: %s\n", executable_name);
 			}
+			break;
 		}
 		free(executable_path);
 		dir = strtok(NULL, ":");
