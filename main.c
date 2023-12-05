@@ -60,6 +60,8 @@ char **tokenize_line(char *buffer)
 void path_search(const char *executable_name, char *args)
 {
 	char *path = getenv("PATH");
+	printf("PATH: %s\n", getenv("PATH"));
+
 	char *path_copy = strdup(path);
 
 	if (path_copy == NULL)
@@ -84,8 +86,8 @@ void path_search(const char *executable_name, char *args)
 		}
 
 		strcpy(executable_path, dir);
-		strcat(executable_path, "/");
-		strcat(executable_path, base_name);
+		/**strcat(executable_path, "/");
+		strcat(executable_path, base_name);*/
 
 		if (access(executable_path, F_OK) == 0)
 		{
