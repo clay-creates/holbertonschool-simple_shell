@@ -118,7 +118,7 @@ void path_search(const char *executable_name, char *args)
 				}
 				return;
 			}
-			else
+			else if
 			{
 				wait_pid = waitpid(pid, &exec_status, 0);
 				if (wait_pid == -1)
@@ -131,12 +131,11 @@ void path_search(const char *executable_name, char *args)
 					printf("Child process exited with status %d\n", WEXITSTATUS(exec_status));
 				}
 			}
+			else
+			{
+				printf("Command not found: %s\n", executable_name);
+			}
 		}
-		else
-		{
-			printf("Command not found: %s\n", executable_name);
-		}
-
 		free(executable_path);
 		dir = strtok(NULL, ":");
 	}
