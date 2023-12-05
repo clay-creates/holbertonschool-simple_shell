@@ -134,7 +134,6 @@ void path_search(const char *executable_name, char *args)
 		else
 		{
 			printf("Command not found: %s\n", executable_name);
-			exit(EXIT_FAILURE);
 		}
 
 		free(executable_path);
