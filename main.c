@@ -1,7 +1,5 @@
 #include "main.h"
 
-char *safe_malloc(size_t size);
-
 /**
  * read_line - uses getline to recieve and save user input in buffer variable
  *
@@ -34,8 +32,8 @@ char *read_line(void)
 char **tokenize_line(char *buffer)
 {
 	int i = 0;
-	char **tokens = safe_malloc(100 * sizeof(char *));
-	char *token = strtok(buffer, "\t\n\r");
+	char **tokens = malloc(100 * sizeof(char *));
+	char *token = strtok(buffer, " \t\n\r");
 
 	while (token != NULL)
 	{
@@ -64,32 +62,42 @@ void path_search(const char *executable_name, char *args)
 {
 	char *path = getenv("PATH");
 	char *path_copy = strdup(path);
+
+	if (path_copy == NULL)
+	{
+		perror("Error copying PATH");
+		exit(EXIT_FAILURE);
+	}
+
 	char *dir = strtok(path_copy, ":");
-	__pid_t pid;
+	__pid_t pid, wait_pid;
+	int exec_status;
 
 	while (dir != NULL)
 	{
-		char *base_name = basename((char *)executable_name);
-		char *executable_path = safe_malloc(strlen(path_copy) + strlen(executable_name) + 2);
-		int exec_status;
+		char *base_name = basename(strdup(executable_name));
+		char *executable_path = malloc(strlen(dir) + strlen(base_name) + 2);
 
 		if (executable_path == NULL)
 		{
-			perror("Memory allocation failed.");
-			exit(1);
+			perror("Error allocating memory for executable path");
+			exit(EXIT_FAILURE);
 		}
+
 		strcpy(executable_path, dir);
 		strcat(executable_path, "/");
 		strcat(executable_path, base_name);
+
 		if (access(executable_path, F_OK) == 0)
 		{
 			printf("Found executable at %s\n", executable_path); /** need to execute if found */
 
 			pid = fork();
+
 			if (pid < 0)
 			{
 				perror("Fork failed.");
-				exit(1);
+				exit(EXIT_FAILURE);
 			}
 
 			if (pid == 0)
@@ -103,28 +111,32 @@ void path_search(const char *executable_name, char *args)
 
 				if (exec_status == -1)
 				{
-					perror("Execve failed.");
+					perror("Execve failed");
 					free(args);
-					exit(1);
+					exit(EXIT_FAILURE);
 				}
 			}
-			if (pid > 0)
+			else
 			{
-				int status;
-				wait(&status);
-				if (WIFEXITED(status))
+				wait_pid = waitpid(pid, &exec_status, 0);
+				if (wait_pid == -1)
 				{
-					printf("Child process exited with status %d\n", WEXITSTATUS(status));
+					perror("Error waiting for child process");
+					exit(EXIT_FAILURE);
+				}
+				if (WIFEXITED(exec_status))
+				{
+					printf("Child process exited with status %d\n", WEXITSTATUS(exec_status));
 				}
 			}
 		}
 		else
 		{
 			printf("Command not found: %s\n", executable_name);
-			exit(1);
+			exit(EXIT_FAILURE);
 		}
+
 		free(executable_path);
-		free(args);
 		dir = strtok(NULL, ":");
 	}
 	free(path_copy);
