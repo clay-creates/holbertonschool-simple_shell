@@ -152,16 +152,17 @@ void path_search(const char *executable_name, char *args)
 
 int main(void)
 {
-	while (!feof(stdin))
+	while (1)
 	{
+		printf("$: ");
 		char *buffer = read_line();
 		char **tokens = tokenize_line(buffer);
-		if (tokens[0] == NULL)
+
+		if (tokens[0] != NULL)
 		{
-			perror("Error tokenizing line.");
-			exit(1);
+			path_search(tokens[0], tokens[1]);
 		}
-		path_search(tokens[0], tokens[1]);
+
 		free(tokens);
 		free(buffer);
 	}
