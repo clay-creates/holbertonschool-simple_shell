@@ -116,6 +116,7 @@ void path_search(const char *executable_name, char *args)
 					free(args);
 					exit(EXIT_FAILURE);
 				}
+				return;
 			}
 			else
 			{
