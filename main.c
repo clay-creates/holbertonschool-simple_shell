@@ -89,7 +89,7 @@ void path_search(const char *executable_name, char *args)
 		/**strcat(executable_path, "/");
 		strcat(executable_path, base_name);*/
 
-		if (access(executable_path, F_OK) == 0)
+		if (access(executable_path, F_OK | X_OK) == 0)
 		{
 			printf("Found executable at %s\n", executable_path); /** need to execute if found */
 
