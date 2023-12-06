@@ -59,8 +59,17 @@ char **tokenize_line(char *buffer)
 
 void path_search(char **tokens)
 {
-	char *path = getenv("PATH");
-	/**printf("PATH: %s\n", getenv("PATH"));*/
+	extern char **environ;
+	char *path = NULL;
+
+	for (int i = 0; environ[i] != NULL; i++)
+	{
+		if (strncmp(environ[i], "PATH=", 5) == 0)
+		{
+			path = strdup(environ[i] + 5);
+			break;
+		}
+	}
 
 	char *path_copy = strdup(path);
 
@@ -129,7 +138,7 @@ void path_search(char **tokens)
 			}
 			else
 			{
-				printf("Command not found: %s\n", tokens[0];
+				printf("Command not found: %s\n", tokens[0]);
 			}
 			break;
 		}
