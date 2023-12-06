@@ -11,6 +11,8 @@
 
 char *read_line(void);
 char **tokenize_line(char *buffer);
+char *get_path(void);
+void search_in_path(char *path, char **tokens);
 void path_search(char **tokens);
 
 #endif
