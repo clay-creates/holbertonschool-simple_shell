@@ -45,7 +45,7 @@ void search_in_path(char *path, char **tokens)
 
 			if (pid == 0)
 			{
-				char *tokens[0] = executable_path;
+				*tokens[0] = executable_path;
 				exec_status = execve(executable_path, tokens, NULL);
 
 				if (exec_status == -1)
