@@ -23,7 +23,7 @@ int main(void)
 			continue;
 		}
 
-		*tokens = tokenize_line(buffer);
+		**tokens = tokenize_line(buffer);
 		if (tokens == NULL)
 		{
 			free(buffer);
