@@ -51,7 +51,6 @@ void search_in_path(char *path, char **tokens)
 				if (exec_status == -1)
 				{
 					perror("Execve failed");
-					free(tokens);
 					exit(EXIT_FAILURE);
 				}
 			}
