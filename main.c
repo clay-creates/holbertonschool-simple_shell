@@ -57,7 +57,7 @@ char **tokenize_line(char *buffer)
  * @args: arguments for executable (found in tokens[1])
  */
 
-void path_search(const char **tokens)
+void path_search(char **tokens)
 {
 	char *path = getenv("PATH");
 	/**printf("PATH: %s\n", getenv("PATH"));*/
@@ -129,7 +129,7 @@ void path_search(const char **tokens)
 			}
 			else
 			{
-				printf("Command not found: %s\n", executable_name);
+				printf("Command not found: %s\n", tokens[0];
 			}
 			break;
 		}
