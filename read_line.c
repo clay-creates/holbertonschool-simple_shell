@@ -20,8 +20,3 @@ char *read_line(void)
 
     return buffer;
 }
-
-int main(void)
-{
-    return (0);
-}

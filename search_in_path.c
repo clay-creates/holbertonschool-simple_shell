@@ -76,8 +76,3 @@ void search_in_path(char *path, char **tokens)
 	}
 	free(path_copy);
 }
-
-int main(void)
-{
-	return (0);
-}

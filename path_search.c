@@ -11,8 +11,3 @@ void path_search(char **tokens)
     search_in_path(path, tokens);
     free(path);
 }
-
-int main(void)
-{
-    return (0);
-}
