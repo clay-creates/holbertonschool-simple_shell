@@ -14,7 +14,16 @@ int main(void)
 	{
 		printf("$: ");
 		char *buffer = read_line();
+		if (buffer == NULL)
+		{
+			continue;
+		}
 		char **tokens = tokenize_line(buffer);
+		if (tokens == NULL)
+		{
+			free(buffer);
+			continue;
+		}
 
 		if (tokens[0] != NULL)
 		{
