@@ -29,3 +29,8 @@ char **tokenize_line(char *buffer)
     }
     return tokens;
 }
+
+int main(void)
+{
+    return (0);
+}

@@ -29,3 +29,8 @@ char *get_path(void)
 
 	return (path);
 }
+
+int main(void)
+{
+	return (0);
+}
