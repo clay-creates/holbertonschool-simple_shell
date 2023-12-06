@@ -13,12 +13,14 @@ int main(void)
 	while (1)
 	{
 		printf("$: ");
-		char *buffer = read_line();
+		char *buffer;
+		buffer = read_line();
 		if (buffer == NULL)
 		{
 			continue;
 		}
-		char **tokens = tokenize_line(buffer);
+		char **tokens;
+		*tokens = tokenize_line(buffer);
 		if (tokens == NULL)
 		{
 			free(buffer);
