@@ -91,7 +91,7 @@ void path_search(const char *executable_name, char *args)
 
 		if (access(executable_path, F_OK | X_OK) == 0)
 		{
-			printf("Found executable at %s\n", executable_path); /** need to execute if found */
+			/**printf("Found executable at %s\n", executable_path); /** need to execute if found */
 
 			pid = fork();
 
@@ -116,7 +116,6 @@ void path_search(const char *executable_name, char *args)
 					free(args);
 					exit(EXIT_FAILURE);
 				}
-				break;
 			}
 			else if (pid > 0)
 			{
@@ -128,7 +127,7 @@ void path_search(const char *executable_name, char *args)
 				}
 				if (WIFEXITED(exec_status))
 				{
-					printf("Child process exited with status %d\n", WEXITSTATUS(exec_status));
+					/**printf("Child process exited with status %d\n", WEXITSTATUS(exec_status));*/
 				}
 			}
 			else
