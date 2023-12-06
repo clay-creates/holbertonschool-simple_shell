@@ -17,7 +17,8 @@ char **tokenize_line(char *buffer)
         exit(1);
     }
 
-    char *token = strtok(buffer, " \t\n\r");
+    char *token;
+    token = strtok(buffer, " \t\n\r");
 
     while (token != NULL)
     {
