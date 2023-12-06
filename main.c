@@ -57,7 +57,7 @@ char **tokenize_line(char *buffer)
  * @args: arguments for executable (found in tokens[1])
  */
 
-void path_search(const char *executable_name, char *args)
+void path_search(const char **tokens)
 {
 	char *path = getenv("PATH");
 	/**printf("PATH: %s\n", getenv("PATH"));*/
@@ -76,7 +76,7 @@ void path_search(const char *executable_name, char *args)
 
 	while (dir != NULL)
 	{
-		char *base_name = basename(strdup(executable_name));
+		char *base_name = basename(strdup(tokens[0]));
 		char *executable_path = malloc(strlen(dir) + strlen(base_name) + 2);
 
 		if (executable_path == NULL)
@@ -91,7 +91,7 @@ void path_search(const char *executable_name, char *args)
 
 		if (access(executable_path, F_OK | X_OK) == 0)
 		{
-			/**printf("Found executable at %s\n", executable_path); /** need to execute if found */
+			/**printf("Found executable at %s\n", executable_path); need to execute if found */
 
 			pid = fork();
 
@@ -103,17 +103,14 @@ void path_search(const char *executable_name, char *args)
 
 			if (pid == 0)
 			{
-				char *exec_args[3];
-				exec_args[0] = executable_path;
-				exec_args[1] = args;
-				exec_args[2] = NULL;
+				tokens[0] = executable_path;
 
-				exec_status = execve(executable_path, exec_args, NULL);
+				exec_status = execve(executable_path, tokens, NULL);
 
 				if (exec_status == -1)
 				{
 					perror("Execve failed");
-					free(args);
+					free(tokens);
 					exit(EXIT_FAILURE);
 				}
 			}
@@ -160,7 +157,7 @@ int main(void)
 
 		if (tokens[0] != NULL)
 		{
-			path_search(tokens[0], tokens[1]);
+			path_search(tokens);
 		}
 
 		free(tokens);
