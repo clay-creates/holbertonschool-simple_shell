@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .TH SIMPLE SHELL
 .SH NAME
 simple_shell \- opens custom simple shell
@@ -12,3 +13,39 @@ opens a custom UNIX interpreter shell
 .TP
 .BR 
 ...i
+=======
+.TH simple_shell 1 "December 2023" "Version 1.0" "simple_shell Manual"
+
+.SH NAME
+simple_shell \- a simple shell program
+
+.SH SYNOPSIS
+.B simple_shell
+
+.SH DESCRIPTION
+The \fBsimple_shell\fP program is a basic shell that allows users to interact with the system by entering commands.
+
+.PP
+When the shell is launched, it presents a command prompt (\fI$:\fP) and awaits user input. Users can enter commands along with optional arguments.
+
+.PP
+The shell then searches for the entered command in the system's PATH directories, and if found, it executes the command.
+
+.SH OPTIONS
+None
+
+.SH EXAMPLES
+To run a command in the shell, simply type the command and press Enter. For example:
+
+.PP
+.B $: ls
+
+.PP
+This will list the contents of the current directory.
+
+.SH SEE ALSO
+.BR execve(2), \fIgetenv\fP(3), \fIgetline\fP(3), \fIstrtok\fP(3), \fIwaitpid\fP(2)
+
+.SH AUTHOR
+Clay Jones <claycreatesstuff@gmail.com>
+>>>>>>> 75454ade0d9384c55a37f9e3d77e1464c811b73c

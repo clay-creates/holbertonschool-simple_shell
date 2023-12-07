@@ -10,15 +10,20 @@
 
 int main(void)
 {
+	char *buffer;
+	char **tokens;
+
 	while (1)
 	{
 		printf("$: ");
-		char *buffer = read_line();
+
+		buffer = read_line();
 		if (buffer == NULL)
 		{
 			continue;
 		}
-		char **tokens = tokenize_line(buffer);
+
+		tokens = tokenize_line(buffer);
 		if (tokens == NULL)
 		{
 			free(buffer);

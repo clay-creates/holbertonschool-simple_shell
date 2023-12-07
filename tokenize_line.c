@@ -11,13 +11,14 @@ char **tokenize_line(char *buffer)
 {
     int i = 0;
     char **tokens = malloc(100 * sizeof(char *));
+    char *token;
     if (tokens == NULL)
     {
         perror("Error tokenizing line");
         exit(1);
     }
 
-    char *token = strtok(buffer, " \t\n\r");
+    token = strtok(buffer, " \t\n\r");
 
     while (token != NULL)
     {
