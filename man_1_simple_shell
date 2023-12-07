@@ -1,0 +1,14 @@
+.TH SIMPLE SHELL
+.SH NAME
+simple_shell \- opens custom simple shell
+.SH SYNOPSIS
+.B simple_shell
+...
+
+.SH DESCRIPTION
+.B simple_shell
+opens a custom UNIX interpreter shell
+.SH OPTIONS
+.TP
+.BR 
+...i
