@@ -26,7 +26,6 @@ int main(void)
 		tokens = tokenize_line(buffer);
 		if (tokens == NULL)
 		{
-			free(buffer);
 			continue;
 		}
 
@@ -35,7 +34,6 @@ int main(void)
 			path_search(tokens);
 		}
 
-		free(tokens);
 		free(buffer);
 	}
 	return 0;
