@@ -72,5 +72,6 @@ void search_in_path(char *path, char **tokens)
 		free(executable_path);
 		dir = strtok(NULL, ":");
 	}
+	free(base_name);
 	free(path_copy);
 }
