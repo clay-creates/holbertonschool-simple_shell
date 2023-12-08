@@ -17,7 +17,6 @@ char *read_line(void)
         perror("Buffer allocation failed.");
         exit(1);
     }
-    atexit(free(buffer));
 
     return buffer;
 }
